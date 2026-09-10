@@ -1,0 +1,555 @@
+.agenda-page {
+    min-height: 100vh;
+    background: #fcfbf8;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Inter",
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+
+    background: #222;
+
+    padding: 28px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+
+    color: white;
+}
+
+
+.back-btn {
+    width: 125px;
+    height: 44px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #f5f5f5;
+    color: #202020;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.back-btn:hover {
+    transform: translateX(6px);
+    background: white;
+}
+
+
+/* CARD PSICOLOGO */
+
+.psychologist-card {
+    background: #292929;
+
+    border-radius: 24px;
+
+    padding: 32px 22px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+}
+
+
+.photo {
+    width: 125px;
+    height: 125px;
+
+    background: #151515;
+
+    border-radius: 50%;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 52px;
+
+    border: 3px solid #444;
+}
+
+
+.psychologist-card h2 {
+    text-align: center;
+
+    margin-top: 25px;
+
+    font-size: 22px;
+}
+
+
+.description {
+    text-align: center;
+
+    color: #aaa;
+}
+
+
+.info-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 22px;
+}
+
+
+.info-item span {
+    font-size: 18px;
+}
+
+
+.info-item p {
+    margin: 0;
+
+    color: #ddd;
+
+    font-size: 15px;
+}
+
+
+/* CONTEUDO */
+
+.agenda-content {
+    margin-left: 300px;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    padding-top: 110px;
+}
+
+
+.agenda-content h1 {
+    font-size: 40px;
+
+    margin: 0;
+}
+
+
+.subtitle {
+    color: #777;
+
+    font-size: 17px;
+
+    margin-top: 15px;
+
+    margin-bottom: 65px;
+}
+
+
+/* CALENDARIO */
+
+.calendar-card {
+    background: #292929;
+
+    padding: 25px;
+
+    border-radius: 28px;
+
+    box-shadow: 0 18px 45px rgba(0,0,0,.10);
+
+    transform: scale(1.20);
+
+    transform-origin: center;
+}
+
+
+.calendar-card :deep(.vc-container) {
+    font-size: 0;
+
+    margin-bottom: 0;
+}
+
+
+.calendar-card :deep(.vc-day-content) {
+    width: 48px;
+
+    height: 48px;
+
+    font-size: 17px;
+}
+
+
+.calendar-card :deep(.vc-title) {
+    font-size: 22px;
+
+    background-color: white;
+
+    text-transform: capitalize;
+}
+
+
+.calendar-card :deep(.vc-header) {
+    background: transparent;
+}
+
+
+.calendar-card :deep(.vc-arrow) {
+    background: white;
+
+    color: black;
+}
+
+/* SELETOR DE MÊS / ANO */
+
+.calendar-card :deep(.vc-nav-container) {
+    background: #292929;
+    border-radius: 15px;
+}
+
+
+.calendar-card :deep(.vc-nav-title) {
+    color: white;
+    background: transparent;
+}
+
+
+.calendar-card :deep(.vc-nav-item) {
+    color: rgb(255, 255, 255);
+    background: transparent;
+    text-transform: capitalize;
+}
+
+
+.calendar-card :deep(.vc-nav-item:hover) {
+    background: #444;
+}
+
+
+.calendar-card :deep(.vc-nav-arrow) {
+    background: #222;
+    color: white;
+}
+
+
+.calendar-card :deep(.vc-nav-item.is-active) {
+    background: #20768b;
+    color: white;
+}
+
+
+/* MODAL */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    animation: overlayFade .75s ease;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 999;
+}
+
+.modal {
+    background:white;
+
+    width:380px;
+
+    max-height:850px;
+
+    border-radius:25px;
+
+    border:5px solid #000;
+
+    padding:32px;
+
+    box-sizing:border-box;
+
+    display:flex;
+
+    flex-direction:column;
+
+    animation:modalUp .65s ease-out;
+}
+
+
+.time-modal {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* HORARIOS - EFEITO PERGAMINHO */
+
+.times-container {
+    overflow-y: scroll;
+    max-height: 520px;
+    min-height: 0;
+
+    scrollbar-width: thin;
+    scrollbar-color: #c2c2c2 #111;
+    padding-right: 15px;
+}
+
+.times-container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+}
+
+.times-container::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 5px;
+}
+
+.times-container::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.times-list {
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    margin-top:30px;
+
+    padding-right:5px;
+
+}
+
+
+.time-button {
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2b6e0c;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.2s;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    animation: appearTime .35s ease forwards;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 20px;
+
+}
+
+
+.time-button:hover:not(:disabled) {
+    
+    background:rgb(60, 145, 20);
+    color: white;
+}
+
+
+.time-button:disabled {
+    opacity: .35;
+    background: #1f0202;
+    cursor: not-allowed;
+}
+
+.time-text {
+
+    font-weight:500;
+
+}
+
+
+.modality-icons {
+
+    display:flex;
+
+    gap:8px;
+
+    font-size:18px;
+
+}
+
+.modal-actions {
+    margin-top:25px;
+
+    padding-top:10px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+
+.cancel-btn {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    background: #850000;
+}
+
+
+.confirm-btn {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #388f10;
+
+    color: white;
+}
+
+.modality-buttons {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-top:25px;
+}
+
+
+.psychologist-card hr {
+    border:none;
+    height:1px;
+    background:#444;
+    margin:25px 0;
+}
+
+
+.psychologist-card h3 {
+    font-size:16px;
+    color:#ddd;
+    margin-bottom:15px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:950px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+
+    .agenda-content {
+        margin-left: 220px;
+    }
+
+}
+
+
+/* ANIMAÇÕES */
+
+@keyframes modalUp {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(120px);
+    }
+
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes overlayFade {
+
+    from {
+        opacity: 0;
+    }
+
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes unroll {
+
+    from {
+        opacity: 0;
+
+        transform: scaleY(0);
+    }
+
+
+    to {
+        opacity: 1;
+
+        transform: scaleY(1);
+    }
+
+}
+
+@keyframes appearTime {
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}

@@ -1,0 +1,213 @@
+/* ---------- Página ---------- */
+
+.adm-request {
+  min-height: 100vh;
+  background: #fcfbf8;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+
+/* ---------- Navbar ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.nav {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  padding: 16px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* ---------- Título ---------- */
+
+.page-title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  color: #fcfbf8;
+}
+
+
+/* ---------- Botão Voltar ---------- */
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 9px 16px;
+
+  border: 1px solid #555;
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #fcfbf8;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.btn-back:hover {
+  background: #333;
+  border-color: #666;
+}
+
+
+/* ---------- Conteúdo ---------- */
+
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  padding: 64px 24px;
+}
+
+
+/* ---------- Cabeçalho ---------- */
+
+.content-header {
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  color: #888;
+}
+
+.content-header h2 {
+  margin: 0;
+
+  font-size: 36px;
+  line-height: 1.1;
+
+  font-weight: 500;
+  letter-spacing: -0.02em;
+
+  color: #1a1a1a;
+}
+
+.description {
+  max-width: 600px;
+
+  margin: 16px 0 0;
+
+  font-size: 15px;
+  color: #666;
+}
+
+
+/* ---------- Área das solicitações ---------- */
+
+.requests-container {
+  width: 100%;
+  min-height: 400px;
+
+  background: #fff;
+
+  border: 1px solid #eee;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+}
+
+
+/* ---------- Estado vazio ---------- */
+
+.empty-state {
+  max-width: 420px;
+  padding: 60px 24px;
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f1efe9;
+  color: #666;
+
+  font-size: 20px;
+}
+
+.empty-state h3 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  color: #1a1a1a;
+}
+
+.empty-state p {
+  margin: 10px auto 0;
+
+  font-size: 14px;
+  color: #888;
+
+  line-height: 1.6;
+}
+
+
+/* ---------- Responsividade ---------- */
+
+@media (max-width: 640px) {
+
+  .nav {
+    padding: 14px 16px;
+  }
+
+  .main-content {
+    padding: 40px 16px;
+  }
+
+  .content-header h2 {
+    font-size: 28px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+}

@@ -1,0 +1,638 @@
+.psy-home{
+  min-height: 100vh;
+  width: 100%;
+  background: #e9e7e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  overflow: hidden;
+  color: #1a1a1a;
+}
+
+.tablet{
+  position: relative;
+  width: min(1180px, 94vw);
+  height: min(700px, 86vh);
+  padding: 11px;
+  box-sizing: border-box;
+  background: #171717;
+  border-radius: 38px;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.22), 0 10px 25px rgba(0, 0, 0, 0.14);
+  transform: translateY(-18px);
+}
+
+.tablet-screen{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fcfbf8;
+  border-radius: 29px;
+  overflow: hidden;
+}
+
+.tablet-screen::before{
+  content: "";
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  right: -330px;
+  bottom: -350px;
+  border-radius: 50%;
+  background: rgba(159, 168, 154, 0.14);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tablet-screen::after{
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  left: -300px;
+  bottom: -300px;
+  border-radius: 50%;
+  background: rgba(168, 183, 200, 0.10);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sereno-brand{
+  position: absolute;
+  top: 27px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 17px;
+  font-weight: 600;
+  z-index: 20;
+}
+
+.brand-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
+
+.psy-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 125px 90px 75px;
+  z-index: 2;
+}
+
+.psy-profile{
+  margin-bottom: 32px;
+  flex-shrink: 0;
+}
+
+.profile-label{
+  display: block;
+  margin-bottom: 11px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #999;
+}
+
+.psy-profile h1{
+  margin: 0;
+  font-size: clamp(40px, 4vw, 54px);
+  font-weight: 300;
+  letter-spacing: -2.7px;
+  line-height: 1.05;
+}
+
+.psy-profile h1 strong{
+  font-weight: 500;
+}
+
+.psy-profile p{
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #858585;
+}
+
+.menu-area{
+  width: 100%;
+  padding-top: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.menu-slider{
+  width: 200%;
+  display: flex;
+  transition: transform 0.48s cubic-bezier(0.22, 0.8, 0.25, 1);
+  will-change: transform;
+}
+
+.menu-page{
+  width: 50%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding-right: 25px;
+}
+
+.psy-grid{
+  width: 100%;
+  display: grid;
+  gap: 22px;
+  box-sizing: border-box;
+}
+
+.three-apps{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.two-apps{
+  grid-template-columns: repeat(3, 1fr);
+  padding-right: 0;
+}
+
+.psy-card{
+  position: relative;
+  min-width: 0;
+  min-height: 225px;
+  padding: 22px;
+  box-sizing: border-box;
+  border-radius: 22px;
+  text-decoration: none;
+  color: #1a1a1a;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.psy-card::after{
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -55px;
+  bottom: -65px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.psy-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.psy-card:active{
+  transform: translateY(-2px);
+}
+
+.patient-card{
+  background: #1a1a1a;
+  color: white;
+}
+
+.availability-card{
+  background: #e7e1d6;
+}
+
+.appointments-card{
+  background: #9da99f;
+  color: white;
+}
+
+.profile-card{
+  background: #34495e;
+  color: white;
+}
+
+.payment-card{
+  background: #d7b968;
+  color: #1a1a1a;
+}
+
+.app-icon{
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+}
+
+.app-icon img{
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  display: block;
+}
+
+.patient-icon{
+  background: #f4f3ef;
+}
+
+.patient-card h2{
+  color: rgb(211, 211, 211);
+}
+
+.availability-icon{
+  background: #fffaf0;
+}
+
+
+.appointments-card p{
+  color: white;
+}
+
+.profile-app-icon{
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.payment-app-icon{
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.profile-icon{
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.profile-head{
+  position: absolute;
+  left: 13px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.profile-body{
+  position: absolute;
+  left: 4px;
+  bottom: 2px;
+  width: 30px;
+  height: 17px;
+  border: 3px solid white;
+  border-radius: 18px 18px 7px 7px;
+}
+
+.wallet-icon{
+  position: relative;
+  width: 42px;
+  height: 29px;
+  border: 3px solid #1a1a1a;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.wallet-line{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 3px;
+  background: #1a1a1a;
+}
+
+.wallet-dot{
+  position: absolute;
+  right: 6px;
+  top: 14px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
+
+.card-info{
+  position: relative;
+  z-index: 2;
+}
+
+.card-category{
+  display: block;
+  margin-bottom: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #888;
+}
+
+.patient-card .card-category{
+  color: #999;
+}
+
+.appointments-card .card-category,
+.profile-card .card-category{
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.payment-card .card-category{
+  color: rgba(26, 26, 26, 0.55);
+}
+
+.psy-card h2{
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.psy-card p{
+  margin: 8px 0 0;
+  max-width: 220px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.patient-card p,
+.appointments-card p{
+  color: rgb(255, 255, 255);
+}
+
+.appointments-card h2{
+  color: rgba(255, 255, 255, 0.80);
+}
+
+.payment-card p
+{
+  color: rgb(0, 0, 0);
+}
+
+.profile-card p
+{
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.profile-card h2{
+  color: rgba(255, 255, 255);
+}
+
+.card-arrow{
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  font-size: 22px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.psy-card:hover .card-arrow{
+  opacity: 0.8;
+  transform: translateX(0);
+}
+
+.page-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border: 1px solid #dedbd4;
+  background: rgba(255, 255, 255, 0.78);
+  color: #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 21px;
+  z-index: 20;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page-arrow:hover{
+  background: #1a1a1a;
+  color: white;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.14);
+}
+
+.right-arrow{
+  right: 20px;
+}
+
+.left-arrow{
+  left: 20px;
+}
+
+.page-indicators{
+  position: absolute;
+  left: 50%;
+  bottom: 27px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  z-index: 20;
+}
+
+.page-indicators button{
+  width: 25px;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #d2d0ca;
+  cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
+}
+
+.page-indicators button.active{
+  width: 38px;
+  background: #1a1a1a;
+}
+
+.tablet-footer{
+  position: absolute;
+  left: 27px;
+  right: 27px;
+  bottom: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  color: #999;
+  font-size: 10px;
+  z-index: 12;
+}
+
+.footer-brand{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.footer-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #aaa;
+}
+
+.footer-page{
+  font-size: 10px;
+}
+
+.home-indicator{
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 115px;
+  height: 4px;
+  border-radius: 999px;
+  background: #555;
+  z-index: 20;
+}
+
+.back-btn-home{
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  width: 46px;
+  height: 46px;
+  box-sizing: border-box;
+  border: 2px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 9px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 50;
+  transition: width 0.35s ease, background 0.2s ease;
+}
+
+.back-btn-home:hover{
+  width: 145px;
+  background: #2a2a2a;
+}
+
+.back-btn-home .icone{
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.back-btn-home span{
+  opacity: 0;
+  font-size: 12px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.back-btn-home:hover span{
+  opacity: 1;
+}
+
+@media (max-width: 1050px) {
+.tablet{
+  width: 94vw;
+}
+
+.psy-container{
+  padding-left: 55px;
+  padding-right: 55px;
+}
+
+.psy-grid{
+  gap: 14px;
+}
+
+.psy-card{
+  min-height: 215px;
+  padding: 18px;
+}
+
+.two-apps{
+  padding-right: 70px;
+}
+}
+
+@media (max-width: 750px) {
+.psy-home{
+  padding: 0;
+}
+
+.tablet{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.tablet-screen{
+  border-radius: 0;
+}
+
+.psy-container{
+  padding: 95px 30px 65px;
+}
+
+.psy-profile{
+  margin-bottom: 28px;
+}
+
+.psy-profile h1{
+  font-size: 38px;
+}
+
+.psy-profile p{
+  font-size: 13px;
+}
+
+.three-apps{
+  grid-template-columns: 1fr;
+}
+
+.two-apps{
+  grid-template-columns: 1fr;
+  padding-right: 0;
+}
+
+.psy-card{
+  min-height: 140px;
+}
+
+.page-arrow{
+  width: 40px;
+  height: 40px;
+}
+
+.right-arrow{
+  right: 10px;
+}
+
+.left-arrow{
+  left: 10px;
+}
+
+.back-btn-home{
+  top: 18px;
+  left: 18px;
+}
+}

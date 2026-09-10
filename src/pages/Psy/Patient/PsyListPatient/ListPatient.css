@@ -1,0 +1,207 @@
+.list-patients {
+  min-height: 100vh;
+  background: #fcfbf8;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+}
+
+/* Topbar */
+
+.create-topbar {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #2a2a2a;
+  background: #1a1a1a;
+}
+
+.back-btn {
+  border: none;
+  background: #111;
+  color: #fcfbf8;
+  padding: 0 28px;
+  font-size: 14px;
+  cursor: pointer;
+  border-right: 1px solid #2a2a2a;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #2a2a2a;
+}
+
+.top-option {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fcfbf8;
+  padding: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-option:hover {
+  background: #2a2a2a;
+}
+
+.top-option.active {
+  background: #000;
+}
+
+/* Container */
+
+.list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.list-header h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #1a1a1a;
+}
+
+.patient-count {
+  font-size: 13px;
+  color: #888;
+  background: #eee;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* Lista */
+
+.patient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.patient-row {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: .2s;
+}
+
+.patient-row:hover {
+  border-color: #ccc;
+}
+
+.patient-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.patient-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #1a1a1a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.patient-info h2 {
+  margin: 0;
+  font-size: 17px;
+  color: #1a1a1a;
+}
+
+.patient-info p {
+  margin-top: 4px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Botões */
+
+.patient-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: .2s;
+}
+
+.edit-btn {
+  background: #1a1a1a;
+}
+
+.edit-btn:hover {
+  background: #333;
+}
+
+.delete-btn {
+  background: #ce0606;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #e60000;
+}
+
+/* Empty */
+
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: .5;
+}
+
+.empty-state p {
+  color: #aaa;
+}
+
+/* Loading */
+
+.loading-state {
+  text-align: center;
+  padding: 80px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eee;
+  border-top: 3px solid #1a1a1a;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

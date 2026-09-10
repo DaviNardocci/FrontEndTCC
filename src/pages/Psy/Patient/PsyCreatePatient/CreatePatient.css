@@ -1,0 +1,158 @@
+.create-patient {
+  min-height: 100vh;
+  background: #fcfbf8;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+}
+
+/* Topbar */
+
+.create-topbar {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #2a2a2a;
+  background: #1a1a1a;
+}
+
+.back-btn {
+  border: none;
+  background: #111;
+  color: #fcfbf8;
+  padding: 0 28px;
+  font-size: 14px;
+  cursor: pointer;
+  border-right: 1px solid #2a2a2a;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #2a2a2a;
+}
+
+.top-option {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fcfbf8;
+  padding: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-option:hover {
+  background: #2a2a2a;
+}
+
+.top-option.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Container */
+
+.create-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.create-card {
+  width: 100%;
+  max-width: 520px;
+}
+
+.create-card h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Form */
+
+.create-form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.create-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-form .field label {
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+
+.create-form .field input {
+  font: inherit;
+  font-size: 14px;
+  padding: 11px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.create-form .field input:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
+}
+
+/* Botão */
+
+.create-btn {
+  margin-top: 8px;
+  background: #1a1a1a;
+  color: #fcfbf8;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.create-btn:hover {
+  opacity: 0.9;
+}
+
+/* Rows */
+
+.form-row {
+  display: flex;
+  gap: 18px;
+}
+
+/* Tamanhos */
+
+.small-field {
+  flex: 1;
+}
+
+.medium-field {
+  flex: 2;
+}
+
+.large-field {
+  flex: 3;
+}
+
+.tiny-field {
+  width: 110px;
+}

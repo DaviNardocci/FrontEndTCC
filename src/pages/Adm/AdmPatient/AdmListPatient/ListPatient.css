@@ -1,0 +1,109 @@
+.list-patients {
+  min-height: 100vh;
+  background: #fcfbf8;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+}
+
+/* Topbar */
+
+.create-topbar {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #2a2a2a;
+  background: #1a1a1a;
+}
+
+.back-btn {
+  border: none;
+  background: #111;
+  color: #fcfbf8;
+  padding: 0 28px;
+  font-size: 14px;
+  cursor: pointer;
+  border-right: 1px solid #2a2a2a;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #2a2a2a;
+}
+
+.top-option {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fcfbf8;
+  padding: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-option:hover {
+  background: #2a2a2a;
+}
+
+.top-option.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Container */
+
+.list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.list-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* Estado vazio */
+
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  color: #bbb;
+}
+
+.empty-state .empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 15px;
+  color: #aaa;
+}
+
+/* Responsivo */
+
+@media (max-width: 600px) {
+
+  .create-topbar {
+    flex-wrap: wrap;
+  }
+
+  .list-container {
+    padding: 24px 16px;
+  }
+
+  .list-header h1 {
+    font-size: 24px;
+  }
+
+}
