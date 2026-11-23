@@ -22,7 +22,7 @@
           <p>Deseja realmente excluir o psicólogo</p>
           <p class="delete-name">{{ name }}</p>
           <p v-if="deleteError" class="delete-error">
-            Não foi possível excluir. Verifique se existe agendamento ou vínculo com paciente para este psicólogo.
+            Não foi possível desativar. Verifique se o psicólogo existe ou tente novamente.
           </p>
           <div class="delete-actions">
             <button class="create-btn cancel" @click="router.push('/admin/psychologist/list')">

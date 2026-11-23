@@ -9,7 +9,7 @@
     </div>
 
     <div class="psychologist-actions">
-      <button class="edit-btn" @click="router.push(`/admin/update/${id}`)">
+      <button class="edit-btn" @click="router.push(`/admin/psychologist/update/${id}`)">
         <img
           width="24"
           height="24"
@@ -17,7 +17,7 @@
           alt="editar"
         />
       </button>
-      <button class="delete-btn" @click="router.push(`/admin/delete/${id}`)">
+      <button class="delete-btn" @click="router.push(`/admin/psychologist/delete/${id}`)">
         <img
           width="25"
           height="25"

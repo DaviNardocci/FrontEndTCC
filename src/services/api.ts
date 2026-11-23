@@ -72,6 +72,7 @@ export interface PsychologistDTO {
   name: string
   lastName: string
   cpf: string
+  age: string
   crp: string
   specialization: string
 }
@@ -82,7 +83,6 @@ export interface UpdatePsychologistData {
   lastName: string
   cpf: string
   age: string
-  password: string
   crp: string
   specialization: string
 }

@@ -6,8 +6,8 @@ import PsychologistCard from '@/components/PsychologistCard.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/admin/update/:id', component: { template: '<div>Update</div>' } },
-    { path: '/admin/delete/:id', component: { template: '<div>Delete</div>' } }
+    { path: '/admin/psychologist/update/:id', component: { template: '<div>Update</div>' } },
+    { path: '/admin/psychologist/delete/:id', component: { template: '<div>Delete</div>' } }
   ]
 })
 
@@ -61,7 +61,7 @@ describe('PsychologistCard Component', () => {
     const editBtn = wrapper.find('.edit-btn')
     await editBtn.trigger('click')
 
-    expect(pushSpy).toHaveBeenCalledWith('/admin/update/1')
+    expect(pushSpy).toHaveBeenCalledWith('/admin/psychologist/update/1')
   })
 
   it('navigates to delete page when delete button is clicked', async () => {
@@ -77,7 +77,7 @@ describe('PsychologistCard Component', () => {
     const deleteBtn = wrapper.find('.delete-btn')
     await deleteBtn.trigger('click')
 
-    expect(pushSpy).toHaveBeenCalledWith('/admin/delete/1')
+    expect(pushSpy).toHaveBeenCalledWith('/admin/psychologist/delete/1')
   })
 
   it('renders edit and delete icons', () => {

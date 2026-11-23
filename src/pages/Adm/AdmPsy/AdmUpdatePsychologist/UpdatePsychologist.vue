@@ -42,11 +42,6 @@
             </div>
           </div>
 
-          <div class="field">
-            <label>Nova senha</label>
-            <input type="password" v-model="password" required />
-          </div>
-
           <div class="form-row">
             <div class="field small-field">
               <label>CRP</label>
@@ -85,7 +80,6 @@ const name = ref('')
 const lastName = ref('')
 const cpf = ref('')
 const age = ref('')
-const password = ref('')
 const crp = ref('')
 const specialization = ref('')
 
@@ -102,6 +96,7 @@ onMounted(async () => {
     name.value = data.name
     lastName.value = data.lastName
     cpf.value = data.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    age.value = data.age
     crp.value = data.crp
     specialization.value = data.specialization
   }
@@ -129,7 +124,6 @@ async function handleSubmit() {
     lastName: lastName.value,
     cpf: cpf.value.replace(/\D/g, ''),
     age: String(age.value),
-    password: password.value,
     crp: crp.value,
     specialization: specialization.value
   }

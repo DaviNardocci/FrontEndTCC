@@ -12,6 +12,7 @@ export interface PsychologistDTO {
   name: string
   lastName: string
   cpf: string
+  age: string
   crp: string
   specialization: string
 }
