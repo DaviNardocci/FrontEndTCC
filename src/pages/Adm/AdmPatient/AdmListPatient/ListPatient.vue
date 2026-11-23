@@ -82,7 +82,47 @@
       </div>
 
       <div
-        v-else
+        v-if="!loading && inactivePatients.length"
+        class="inactive-section"
+      >
+
+        <div class="section-header">
+          <h2>Pacientes desativados</h2>
+          <span class="patient-count">
+            {{ inactivePatients.length }} {{ inactivePatients.length === 1 ? 'registro' : 'registros' }}
+          </span>
+        </div>
+
+        <div class="patient-list">
+          <div
+            v-for="patient in inactivePatients"
+            :key="patient.id"
+            class="patient-row"
+          >
+            <div class="patient-info">
+              <div class="patient-photo">
+                {{ patient.name.charAt(0) }}
+              </div>
+
+              <div>
+                <h2>{{ patient.name }} {{ patient.lastName }}</h2>
+                <p>{{ formatCpf(patient.cpf) }}</p>
+                <span class="status-badge">Inativo</span>
+              </div>
+            </div>
+
+            <div class="patient-actions">
+              <button class="reactivate-btn" @click="reactivatePatientRow(patient.id)">
+                Reativar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        v-else-if="!loading && !patients.length && !inactivePatients.length"
         class="empty-state"
       >
 
@@ -105,12 +145,13 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import getTokenData from '../../../../services/auth'
-import { listPatients, type PatientDTO } from '../../../../services/api'
+import { listPatients, listNotActivePatients, deletePatient as deactivatePatient, reactivatePatient as reactivatePatientApi, type PatientDTO } from '../../../../services/api'
 
 const router = useRouter()
 
 const loading = ref(true)
 const patients = ref<PatientDTO[]>([])
+const inactivePatients = ref<PatientDTO[]>([])
 
 function formatCpf(cpf: string): string {
   const clean = cpf.replace(/\D/g, '')
@@ -121,7 +162,12 @@ function formatCpf(cpf: string): string {
 async function fetchPatients() {
   loading.value = true
   try {
-    patients.value = await listPatients()
+    const [active, inactive] = await Promise.all([
+      listPatients(),
+      listNotActivePatients(),
+    ])
+    patients.value = active
+    inactivePatients.value = inactive
   } catch (error) {
     console.error('Erro ao buscar pacientes:', error)
     patients.value = []
@@ -135,10 +181,25 @@ function editPatient(patient: PatientDTO) {
   alert(`Editar paciente: ${patient.name} ${patient.lastName}`)
 }
 
-function deletePatient(id: number) {
-  if (confirm('Tem certeza que deseja excluir este paciente?')) {
-    // TODO: Implement delete functionality
-    alert(`Excluir paciente ID: ${id}`)
+async function deletePatient(id: number) {
+  if (!confirm('Tem certeza que deseja desativar este paciente?')) return
+
+  const ok = await deactivatePatient(id)
+  if (ok) {
+    alert('Paciente desativado com sucesso.')
+    await fetchPatients()
+  } else {
+    alert('Não foi possível desativar o paciente.')
+  }
+}
+
+async function reactivatePatientRow(id: number) {
+  const ok = await reactivatePatientApi(id)
+  if (ok) {
+    alert('Paciente reativado com sucesso.')
+    await fetchPatients()
+  } else {
+    alert('Não foi possível reativar o paciente.')
   }
 }
 

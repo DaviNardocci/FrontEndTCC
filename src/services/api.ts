@@ -65,6 +65,7 @@ export interface PatientDTO {
   cpf: string
   age: string
   role: string
+  isActive: boolean
 }
 
 export interface PsychologistDTO {
@@ -75,6 +76,7 @@ export interface PsychologistDTO {
   age: string
   crp: string
   specialization: string
+  isActive: boolean
 }
 
 export interface UpdatePsychologistData {
@@ -183,6 +185,36 @@ export async function listPatients(psychologistId?: number): Promise<PatientDTO[
   }
 }
 
+export async function listNotActivePatients(): Promise<PatientDTO[]> {
+  try {
+    const response = await api.get<ApiResponse<PatientDTO[]>>('/api/patient/list-not-active')
+    return response.data.success ? response.data.data.map(normalizePatient) : []
+  } catch (error) {
+    console.error('Erro ao listar pacientes desativados:', error)
+    return []
+  }
+}
+
+export async function listNotActivePatientsByPsychologist(psychologistId: number): Promise<PatientDTO[]> {
+  try {
+    const response = await api.get<ApiResponse<PatientDTO[]>>(`/api/patient/${psychologistId}/listPatientNotActive`)
+    return response.data.success ? response.data.data.map(normalizePatient) : []
+  } catch (error) {
+    console.error('Erro ao listar pacientes desativados do psicólogo:', error)
+    return []
+  }
+}
+
+export async function reactivatePatient(id: number): Promise<boolean> {
+  try {
+    const response = await api.put<ApiResponse<boolean>>(`/api/patient/reactivate/${id}`)
+    return response.data.success
+  } catch (error) {
+    console.error('Erro ao reativar paciente:', error)
+    return false
+  }
+}
+
 export async function getPatientById(id: number): Promise<PatientDTO | null> {
   try {
     const response = await api.get<ApiResponse<PatientDTO>>(`/api/patient/get-by-id/${id}`)
@@ -221,6 +253,16 @@ export async function listPsychologists(): Promise<PsychologistDTO[]> {
   }
 }
 
+export async function listNotActivePsychologists(): Promise<PsychologistDTO[]> {
+  try {
+    const response = await api.get<ApiResponse<PsychologistDTO[]>>('/api/psychologist/list-not-active')
+    return response.data.success ? response.data.data : []
+  } catch (error) {
+    console.error('Erro ao listar psicólogos desativados:', error)
+    return []
+  }
+}
+
 export async function getPsychologistById(id: number): Promise<PsychologistDTO | null> {
   try {
     const response = await api.get<ApiResponse<PsychologistDTO>>(`/api/psychologist/get-by-id/${id}`)
@@ -247,6 +289,26 @@ export async function deletePsychologist(id: number): Promise<boolean> {
     return response.data.success
   } catch (error) {
     console.error('Erro ao excluir psicólogo:', error)
+    return false
+  }
+}
+
+export async function deletePatient(id: number): Promise<boolean> {
+  try {
+    const response = await api.delete<ApiResponse<boolean>>(`/api/patient/${id}`)
+    return response.data.success
+  } catch (error) {
+    console.error('Erro ao desativar paciente:', error)
+    return false
+  }
+}
+
+export async function reactivatePsychologist(id: number): Promise<boolean> {
+  try {
+    const response = await api.put<ApiResponse<boolean>>(`/api/psychologist/reactivate/${id}`)
+    return response.data.success
+  } catch (error) {
+    console.error('Erro ao reativar psicólogo:', error)
     return false
   }
 }

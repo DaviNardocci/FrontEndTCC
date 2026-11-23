@@ -40,6 +40,28 @@
         <div class="empty-icon">🧑‍⚕️</div>
         <p>Nenhum psicólogo cadastrado ainda.</p>
       </div>
+
+      <div v-if="!loading && inactivePsychologists.length" class="inactive-section">
+        <div class="section-header">
+          <h2>Psicólogos desativados</h2>
+          <span class="psychologist-count">
+            {{ inactivePsychologists.length }} {{ inactivePsychologists.length === 1 ? 'registro' : 'registros' }}
+          </span>
+        </div>
+
+        <div class="psychologist-list">
+          <PsychologistCard
+            v-for="psychologist in inactivePsychologists"
+            :key="psychologist.id"
+            :id="psychologist.id"
+            :name="psychologist.name"
+            :last-name="psychologist.lastName"
+            :specialization="psychologist.specialization"
+            :is-active="psychologist.isActive"
+            @reactivate="handleReactivate"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -48,13 +70,41 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import PsychologistCard from '../../../../components/PsychologistCard.vue'
-import { listPsychologistsForView } from '../../../../services/psychologist-list'
+import { listPsychologistsForView, listNotActivePsychologistsForView } from '../../../../services/psychologist-list'
+import { reactivatePsychologist } from '../../../../services/api'
 import getTokenData from '../../../../services/auth'
 import type { PsychologistModel } from '../../../../components/models/psychologist'
 
 const router = useRouter()
 const psychologists = ref<PsychologistModel[]>([])
+const inactivePsychologists = ref<PsychologistModel[]>([])
 const loading = ref<boolean>(true)
+
+async function fetchPsychologists() {
+  loading.value = true
+  try {
+    const [active, inactive] = await Promise.all([
+      listPsychologistsForView(),
+      listNotActivePsychologistsForView(),
+    ])
+    psychologists.value = active
+    inactivePsychologists.value = inactive
+  } catch (error) {
+    console.error('Erro ao buscar psicólogos:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleReactivate(id: number) {
+  const ok = await reactivatePsychologist(id)
+  if (ok) {
+    alert('Psicólogo reativado com sucesso.')
+    await fetchPsychologists()
+  } else {
+    alert('Não foi possível reativar o psicólogo.')
+  }
+}
 
 onMounted(async () => {
   const tokenData = getTokenData()
@@ -63,13 +113,7 @@ onMounted(async () => {
     // alert('Acesso negado. Você não tem permissão para acessar esta página.')
   }
 
-  try {
-    const data = await listPsychologistsForView()
-    psychologists.value = data
-  } catch (error) {
-    console.error('Erro ao buscar psicólogos:', error)
-  }
-  loading.value = false
+  await fetchPsychologists()
 })
 </script>
 

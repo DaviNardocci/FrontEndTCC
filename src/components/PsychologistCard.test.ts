@@ -94,4 +94,20 @@ describe('PsychologistCard Component', () => {
     expect(editIcon.attributes('alt')).toBe('editar')
     expect(deleteIcon.attributes('alt')).toBe('excluir')
   })
+
+  it('shows reactivate button for inactive psychologist', async () => {
+    const wrapper = mount(PsychologistCard, {
+      props: { ...defaultProps, isActive: false },
+      global: {
+        plugins: [router]
+      }
+    })
+
+    expect(wrapper.find('.status-badge').text()).toBe('Inativo')
+    expect(wrapper.find('.edit-btn').exists()).toBe(false)
+    expect(wrapper.find('.delete-btn').exists()).toBe(false)
+
+    await wrapper.find('.reactivate-btn').trigger('click')
+    expect(wrapper.emitted('reactivate')).toEqual([[1]])
+  })
 })

@@ -13,7 +13,8 @@ describe('Psychologist Model Mappers', () => {
     cpf: '12345678901',
     age: '35',
     crp: '12345678',
-    specialization: 'Clinical Psychology'
+    specialization: 'Clinical Psychology',
+    isActive: true
   }
 
   describe('mapPsychologistToModel', () => {
@@ -25,7 +26,8 @@ describe('Psychologist Model Mappers', () => {
         name: 'Maria',
         lastName: 'Santos',
         age: '35',
-        specialization: 'Clinical Psychology'
+        specialization: 'Clinical Psychology',
+        isActive: true
       })
     })
 

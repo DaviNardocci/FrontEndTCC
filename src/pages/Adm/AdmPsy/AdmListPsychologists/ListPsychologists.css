@@ -80,6 +80,56 @@
   border-radius: 999px;
 }
 
+/* Seção de desativados */
+
+.inactive-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fdecec;
+  color: #b42318;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.reactivate-btn {
+  padding: 10px 18px;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reactivate-btn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
 /* Lista */
 
 .psychologist-list {

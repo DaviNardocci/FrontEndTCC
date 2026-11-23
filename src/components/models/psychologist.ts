@@ -8,6 +8,7 @@ export interface PsychologistModel {
   lastName: string
   age: string
   specialization: string
+  isActive: boolean
 }
 
 export interface PsychologistModelForEdit {
@@ -26,6 +27,7 @@ export function mapPsychologistToModel(p: PsychologistDTO): PsychologistModel {
     lastName: p.lastName,
     age: p.age,
     specialization: p.specialization,
+    isActive: p.isActive,
   }
 }
 

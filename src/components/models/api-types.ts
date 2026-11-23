@@ -5,6 +5,7 @@ export interface PatientDTO {
   cpf: string
   age: string
   role: string
+  isActive: boolean
 }
 
 export interface PsychologistDTO {
@@ -15,6 +16,7 @@ export interface PsychologistDTO {
   age: string
   crp: string
   specialization: string
+  isActive: boolean
 }
 
 export interface AvailabilityHour {
