@@ -74,8 +74,10 @@ import { listPsychologistsForView, listNotActivePsychologistsForView } from '../
 import { reactivatePsychologist } from '../../../../services/api'
 import getTokenData from '../../../../services/auth'
 import type { PsychologistModel } from '../../../../components/models/psychologist'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 const psychologists = ref<PsychologistModel[]>([])
 const inactivePsychologists = ref<PsychologistModel[]>([])
 const loading = ref<boolean>(true)
@@ -99,10 +101,10 @@ async function fetchPsychologists() {
 async function handleReactivate(id: number) {
   const ok = await reactivatePsychologist(id)
   if (ok) {
-    alert('Psicólogo reativado com sucesso.')
+    toast.success('Psicólogo reativado com sucesso.')
     await fetchPsychologists()
   } else {
-    alert('Não foi possível reativar o psicólogo.')
+    toast.error('Não foi possível reativar o psicólogo.')
   }
 }
 

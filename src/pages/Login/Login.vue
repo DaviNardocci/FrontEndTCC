@@ -135,10 +135,7 @@
     const result = await login(cleanCpf, password.value)
     if (result) {
       success.value = true
-      useToast.apply({
-        type: 'success',
-        content: 'Login realizado com sucesso!',
-      })
+      toast.success('Login realizado com sucesso!')
     }
     else{
       toast.error("Erro ao realizar o login. Credenciais inválidas!")

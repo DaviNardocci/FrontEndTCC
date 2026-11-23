@@ -112,8 +112,10 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { registerPsychologist } from '../../../../services/psychologist'
 import getTokenData from '../../../../services/auth'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const cpf = ref('')
 const crp = ref('')
@@ -160,7 +162,7 @@ async function handleSubmit() {
   const sucesso = await registerPsychologist(payload)
 
   if (sucesso) {
-    alert('Psicólogo cadastrado com sucesso!')
+    toast.success('Psicólogo cadastrado com sucesso!')
     name.value = ''
     lastName.value = ''
     cpf.value = ''
@@ -168,7 +170,7 @@ async function handleSubmit() {
     password.value = ''
     crp.value = ''
   } else {
-    alert('Erro ao cadastrar psicólogo. Verifique os dados ou tente novamente.')
+    toast.error('Erro ao cadastrar psicólogo. Verifique os dados ou tente novamente.')
   }
 }
 </script>

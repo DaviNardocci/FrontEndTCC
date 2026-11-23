@@ -56,8 +56,10 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getPatientAppointments, updateAppointmentStatus, type AppointmentListDTO } from '@/services/api'
 import getTokenData from '@/services/auth'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const loading = ref(true)
 const appointments = ref<AppointmentListDTO[]>([])
@@ -101,10 +103,10 @@ async function cancelAppointment(appointment: AppointmentListDTO) {
   if (!confirm('Tem certeza que deseja cancelar esta consulta?')) return
   const ok = await updateAppointmentStatus(appointment.id, 'Cancelado')
   if (ok) {
-    alert('Consulta cancelada com sucesso!')
+    toast.success('Consulta cancelada com sucesso!')
     await fetchAppointments()
   } else {
-    alert('Erro ao cancelar consulta. Tente novamente.')
+    toast.error('Erro ao cancelar consulta. Tente novamente.')
   }
 }
 

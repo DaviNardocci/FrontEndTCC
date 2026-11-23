@@ -11,10 +11,12 @@ import DeletePsychologist from '../pages/Adm/AdmPsy/AdmDeletePsychologist/Delete
 import UpdatePsychologist from '../pages/Adm/AdmPsy/AdmUpdatePsychologist/UpdatePsychologist.vue'
 import AdmCreatePatient from '../pages/Adm/AdmPatient/AdmCreatePatient/CreatePatient.vue'
 import AdmListPatients from '../pages/Adm/AdmPatient/AdmListPatient/ListPatient.vue'
+import AdmUpdatePatient from '../pages/Adm/AdmPatient/AdmUpdatePatient/UpdatePatient.vue'
 import AdmRequest from '../pages/Adm/AdmPsy/AdmRequest/AdmRequest.vue'
 import PsyHome from '../pages/Psy/PsyHome.vue'
 import PsyCreatePatient from '../pages/Psy/Patient/PsyCreatePatient/CreatePatient.vue'
 import PsyListPatient from '../pages/Psy/Patient/PsyListPatient/ListPatient.vue'
+import PsyUpdatePatient from '../pages/Psy/Patient/PsyUpdatePatient/UpdatePatient.vue'
 import PsyAvailability from '../pages/Psy/PsyAvailability/Availability.vue'
 import Agenda from '../pages/Patient/Agenda/Agenda.vue'
 import PatientAppointments from '../pages/Patient/PatientAppointments/PatientAppointments.vue'
@@ -33,11 +35,13 @@ const routes = [
   { path: '/admin/psychologist/update/:id', name: 'UpdatePsychologist', component: UpdatePsychologist },
   { path: '/admin/patient/create', name: 'AdmCreatePatient', component: AdmCreatePatient },
   { path: '/admin/patient/list', name: 'AdmListPatient', component: AdmListPatients },
+  { path: '/admin/patient/update/:id', name: 'AdmUpdatePatient', component: AdmUpdatePatient },
   { path: '/admin/request', name: 'AdmRequest', component: AdmRequest },
   { path: '/psychologist', name: 'PsyHome', component: PsyHome },
   { path: '/psychologist/profile', name: 'PsyProfile', component: Profile },
   { path: '/patient/create', name: 'PsyCreatePatient', component: PsyCreatePatient },
   { path: '/patient/list', name: 'PsyListPatient', component: PsyListPatient },
+  { path: '/patient/update/:id', name: 'PsyUpdatePatient', component: PsyUpdatePatient },
   { path: '/psychologist/availability', name: 'PsyAvailability', component: PsyAvailability },
   { path: '/patient/appointments', name: 'PatientAppointments', component: PatientAppointments },
   { path: '/psychologist/appointments', name: 'PsyAppointments', component: PsyAppointments },

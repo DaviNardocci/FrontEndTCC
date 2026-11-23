@@ -87,6 +87,7 @@ export interface UpdatePsychologistData {
   age: string
   crp: string
   specialization: string
+  password?: string
 }
 
 export interface PatientPsychologistDTO {
@@ -142,10 +143,8 @@ export async function login(cpf: string, password: string): Promise<boolean> {
 
     if (response.data.success && response.data.data) {
       localStorage.setItem('token', response.data.data.token)
-      alert("Login realizado com sucesso!")
       return true
     }
-    alert("Erro ao realizar o login. Credenciais inválidas!")
     console.log('Login failed:', response.data)
     return false
     
@@ -284,6 +283,25 @@ export async function updatePsychologist(data: UpdatePsychologistData): Promise<
     return response.data.success
   } catch (error) {
     console.error('Erro ao atualizar psicólogo:', error)
+    return false
+  }
+}
+
+export interface UpdatePatientData {
+  id: number
+  name: string
+  lastName: string
+  cpf: string
+  age: string
+  password?: string
+}
+
+export async function updatePatient(data: UpdatePatientData): Promise<boolean> {
+  try {
+    const response = await api.put<ApiResponse<boolean>>('/api/patient/edit', data)
+    return response.data.success
+  } catch (error) {
+    console.error('Erro ao atualizar paciente:', error)
     return false
   }
 }

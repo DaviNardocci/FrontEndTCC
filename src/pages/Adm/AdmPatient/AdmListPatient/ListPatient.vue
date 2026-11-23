@@ -146,8 +146,10 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import getTokenData from '../../../../services/auth'
 import { listPatients, listNotActivePatients, deletePatient as deactivatePatient, reactivatePatient as reactivatePatientApi, type PatientDTO } from '../../../../services/api'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const loading = ref(true)
 const patients = ref<PatientDTO[]>([])
@@ -177,8 +179,7 @@ async function fetchPatients() {
 }
 
 function editPatient(patient: PatientDTO) {
-  // TODO: Implement edit functionality
-  alert(`Editar paciente: ${patient.name} ${patient.lastName}`)
+  router.push(`/admin/patient/update/${patient.id}`)
 }
 
 async function deletePatient(id: number) {
@@ -186,20 +187,20 @@ async function deletePatient(id: number) {
 
   const ok = await deactivatePatient(id)
   if (ok) {
-    alert('Paciente desativado com sucesso.')
+    toast.success('Paciente desativado com sucesso.')
     await fetchPatients()
   } else {
-    alert('Não foi possível desativar o paciente.')
+    toast.error('Não foi possível desativar o paciente.')
   }
 }
 
 async function reactivatePatientRow(id: number) {
   const ok = await reactivatePatientApi(id)
   if (ok) {
-    alert('Paciente reativado com sucesso.')
+    toast.success('Paciente reativado com sucesso.')
     await fetchPatients()
   } else {
-    alert('Não foi possível reativar o paciente.')
+    toast.error('Não foi possível reativar o paciente.')
   }
 }
 

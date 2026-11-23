@@ -176,8 +176,10 @@ import {
 } from '@/services/api'
 
 import getTokenData from '@/services/auth'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const selectedDate = ref(new Date())
 const selectedHour = ref('')
@@ -233,7 +235,7 @@ async function selectDay(day: any) {
   today.setHours(0, 0, 0, 0)
 
   if (picked < today) {
-    alert('Não é possível agendar em datas passadas.')
+    toast.warning('Não é possível agendar em datas passadas.')
     return
   }
 
@@ -334,7 +336,7 @@ function hasAppointmentOnSelectedDay(): boolean {
     `${pad(picked.getDate())}`
 
   if (bookedDates.value.includes(key)) {
-    alert('Você já tem uma consulta agendada neste dia.')
+    toast.warning('Você já tem uma consulta agendada neste dia.')
     return true
   }
 
@@ -408,7 +410,7 @@ async function confirmAppointment() {
       await createAppointment(appointmentData)
 
     if (result.success) {
-      alert('Consulta agendada com sucesso!')
+      toast.success('Consulta agendada com sucesso!')
 
       const pad = (n: number) =>
         String(n).padStart(2, '0')
@@ -445,7 +447,7 @@ async function confirmAppointment() {
           'Não é possível agendar em um horário que já passou.'
       }
 
-      alert(
+      toast.error(
         msgMap[result.message ?? ''] ??
         'Erro ao agendar consulta. Tente novamente.'
       )
@@ -456,7 +458,7 @@ async function confirmAppointment() {
       error
     )
 
-    alert(
+    toast.error(
       'Erro ao agendar consulta. Tente novamente.'
     )
   } finally {

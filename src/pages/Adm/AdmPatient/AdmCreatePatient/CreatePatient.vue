@@ -143,8 +143,10 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import getTokenData from '../../../../services/auth'
 import { registerPatient, listPsychologists, type PsychologistDTO } from '../../../../services/api'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const cpf = ref('')
 const name = ref('')
@@ -184,7 +186,7 @@ function handleCpf(value: string) {
 
 async function handleSubmit() {
   if (!psychologistId.value) {
-    alert('Selecione um psicólogo responsável')
+    toast.warning('Selecione um psicólogo responsável')
     return
   }
 
@@ -203,7 +205,7 @@ async function handleSubmit() {
   loading.value = false
 
   if (sucesso) {
-    alert('Paciente cadastrado com sucesso!')
+    toast.success('Paciente cadastrado com sucesso!')
     name.value = ''
     lastName.value = ''
     cpf.value = ''
@@ -211,7 +213,7 @@ async function handleSubmit() {
     password.value = ''
     psychologistId.value = ''
   } else {
-    alert('Erro ao cadastrar paciente. Verifique os dados ou tente novamente.')
+    toast.error('Erro ao cadastrar paciente. Verifique os dados ou tente novamente.')
   }
 }
 </script>

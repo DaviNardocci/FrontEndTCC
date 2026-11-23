@@ -133,7 +133,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import emailjs from '@emailjs/browser'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const currentYear = new Date().getFullYear()
 
 const sessions = [
@@ -166,10 +168,10 @@ function sendEmail(e: Event) {
     'xSuMRw2aBawnPOawT'
   )
     .then(() => {
-      alert('Email enviado!')
+      toast.success('Email enviado!')
     })
     .catch(() => {
-      alert('Erro ao enviar.')
+      toast.error('Erro ao enviar.')
     })
 }
 

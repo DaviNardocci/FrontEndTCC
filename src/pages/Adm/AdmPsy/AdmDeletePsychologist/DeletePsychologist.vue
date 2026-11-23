@@ -43,9 +43,11 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getPsychologistById, deletePsychologist } from '../../../../services/api'
 import getTokenData from '../../../../services/auth'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const route = useRoute()
+const toast = useToast()
 const id = computed(() => Number(route.params.id))
 
 const loading = ref(true)
@@ -76,7 +78,7 @@ async function handleDelete() {
   deleting.value = false
 
   if (success) {
-    alert('Psicólogo excluído com sucesso!')
+    toast.success('Psicólogo excluído com sucesso!')
     router.push('/admin/psychologist/list')
   } else {
     deleteError.value = true

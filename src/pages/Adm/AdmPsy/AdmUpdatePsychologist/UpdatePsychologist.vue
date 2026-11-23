@@ -53,6 +53,11 @@
             </div>
           </div>
 
+          <div class="field">
+            <label>Nova senha (opcional)</label>
+            <input type="password" placeholder="Deixe em branco para manter a senha atual" v-model="password" />
+          </div>
+
           <button type="submit" class="create-btn" :disabled="saving">
             {{ saving ? 'Salvando...' : 'Salvar alterações' }}
           </button>
@@ -67,9 +72,11 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getPsychologistById, updatePsychologist } from '../../../../services/api'
 import getTokenData from '../../../../services/auth'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const route = useRoute()
+const toast = useToast()
 const id = computed(() => Number(route.params.id))
 
 const loading = ref(true)
@@ -82,6 +89,7 @@ const cpf = ref('')
 const age = ref('')
 const crp = ref('')
 const specialization = ref('')
+const password = ref('')
 
 onMounted(async () => {
   const tokenData = getTokenData()
@@ -125,17 +133,18 @@ async function handleSubmit() {
     cpf: cpf.value.replace(/\D/g, ''),
     age: String(age.value),
     crp: crp.value,
-    specialization: specialization.value
+    specialization: specialization.value,
+    ...(password.value ? { password: password.value } : {})
   }
 
   const success = await updatePsychologist(payload)
   saving.value = false
 
   if (success) {
-    alert('Psicólogo atualizado com sucesso!')
+    toast.success('Psicólogo atualizado com sucesso!')
     router.push('/admin/psychologist/list')
   } else {
-    alert('Erro ao atualizar psicólogo. Verifique os dados ou tente novamente.')
+    toast.error('Erro ao atualizar psicólogo. Verifique os dados ou tente novamente.')
   }
 }
 </script>

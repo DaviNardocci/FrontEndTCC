@@ -154,7 +154,7 @@ async function handleSubmit() {
     age.value = ''
     password.value = ''
   } else {
-    alert('Erro ao cadastrar paciente. Verifique os dados ou tente novamente.')
+    toast.error('Erro ao cadastrar paciente. Verifique os dados ou tente novamente.')
   }
 }
 </script>
