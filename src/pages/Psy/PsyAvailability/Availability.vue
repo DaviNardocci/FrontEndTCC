@@ -1,63 +1,49 @@
 <template>
   <div class="availability-page">
-    <aside class="sidebar">
+    <div class="create-topbar">
       <button class="back-btn" @click="router.push('/psychologist')">
         ← Voltar
       </button>
-      <div class="psy-card-info">
-        <div class="photo">🙋</div>
-        <h2>Minha Agenda</h2>
-        <p>Configure os dias e horários em que você atende. Os pacientes só poderão agendar nos horários informados aqui.</p>
+
+      <button class="top-option active">
+        Horários
+      </button>
+    </div>
+
+    <div class="list-container">
+      <div class="list-header">
+        <h1>Configurar horários</h1>
+
+        <span v-if="!loading" class="selection-summary">
+          {{ selectedDays.length }}/7 dias · {{ selectedHours.length }}/24 horários
+        </span>
       </div>
 
-      <div class="sidebar-summary" v-if="hasSelection">
-        <div class="summary-item">
-          <span class="summary-num">{{ selectedDays.length }}</span>
-          <span class="summary-label">dias</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-num">{{ selectedHours.length }}</span>
-          <span class="summary-label">horários</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-num">{{ selectedDays.length * selectedHours.length }}</span>
-          <span class="summary-label">slots</span>
-        </div>
+      <p class="page-description">
+        Marque os dias e os horários em que você atende. Os pacientes só poderão agendar nos horários informados aqui.
+      </p>
+
+      <div v-if="loading" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Carregando horários...</p>
       </div>
 
-      <div class="sidebar-hint" v-else>
-        <span class="hint-icon">✨</span>
-        Escolha ao menos um dia e um horário para começar.
-      </div>
-    </aside>
-
-    <main class="content">
-      <div class="content-inner">
-        <header class="page-header">
-          <div>
-            <h1>Configurar disponibilidade</h1>
-            <p class="subtitle">Marque os dias da semana e os horários disponíveis para atendimento.</p>
-          </div>
-          <div class="header-status" :class="{ ready: hasSelection }">
-            <span class="dot"></span>
-            {{ hasSelection ? 'Pronto para salvar' : 'Seleção incompleta' }}
-          </div>
-        </header>
-
+      <template v-else>
         <section class="card">
           <div class="card-head">
             <h2>Dias da semana</h2>
-            <span class="card-count">{{ selectedDays.length }}/7 selecionados</span>
+            <span class="card-count">{{ selectedDays.length }}/7</span>
           </div>
+
           <div class="days-grid">
             <button
               v-for="day in weekDays"
               :key="day.value"
+              type="button"
               class="day-pill"
               :class="{ active: selectedDays.includes(day.value) }"
               @click="toggleDay(day.value)"
             >
-              <span class="pill-check">{{ selectedDays.includes(day.value) ? '✓' : '' }}</span>
               {{ day.label }}
             </button>
           </div>
@@ -66,53 +52,53 @@
         <section class="card">
           <div class="card-head">
             <h2>Horários</h2>
-            <span class="card-count">{{ selectedHours.length }} horários</span>
+            <span class="card-count">{{ selectedHours.length }}/24</span>
           </div>
+
           <div class="hours-grid">
             <button
               v-for="hora in hoursOptions"
               :key="hora"
+              type="button"
               class="hour-pill"
               :class="{ active: selectedHours.includes(hora) }"
               @click="toggleHour(hora)"
             >
-              <span class="pill-check">{{ selectedHours.includes(hora) ? '✓' : '' }}</span>
               {{ hora }}
             </button>
           </div>
+
           <p class="hours-note">
-            Estes horários valerão para todos os dias selecionados acima.
+            De 00:00 (meia-noite) até 23:00. Os horários valem para todos os dias selecionados.
           </p>
         </section>
 
         <div class="actions">
           <button class="save-btn" :disabled="saving || !hasSelection" @click="saveAvailability">
             <span v-if="saving" class="spinner"></span>
-            {{ saving ? 'Salvando...' : 'Salvar disponibilidade' }}
+            {{ saving ? 'Salvando...' : 'Salvar horários' }}
           </button>
+
           <button class="clear-btn" :disabled="!hasSelection" @click="clearSelection">
             Limpar seleção
           </button>
         </div>
 
         <div v-if="saveMessage" class="message" :class="saveOk ? 'ok' : 'error'">
-          <span class="message-icon">{{ saveOk ? '✓' : '⚠' }}</span>
           {{ saveMessage }}
         </div>
-      </div>
-    </main>
+      </template>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { createServiceDays } from '../../../services/api'
+import { createServiceDays, getServiceDays } from '../../../services/api'
 import getTokenData from '../../../services/auth'
 
 const router = useRouter()
-
-const psychologistId = ref<number | null>(null)
 
 const weekDays = [
   { value: 1, label: 'Segunda' },
@@ -121,47 +107,31 @@ const weekDays = [
   { value: 4, label: 'Quinta' },
   { value: 5, label: 'Sexta' },
   { value: 6, label: 'Sábado' },
-  { value: 0, label: 'Domingo' }
+  { value: 0, label: 'Domingo' },
 ]
 
-const hoursOptions = [
-  '08:00', '09:00', '10:00', '11:00',
-  '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
-]
+const hoursOptions = Array.from({ length: 24 }, (_, hour) => `${String(hour).padStart(2, '0')}:00`)
 
+const psychologistId = ref<number | null>(null)
 const selectedDays = ref<number[]>([])
 const selectedHours = ref<string[]>([])
-
+const loading = ref(true)
 const saving = ref(false)
 const saveMessage = ref('')
 const saveOk = ref(false)
 
 const hasSelection = computed(() => selectedDays.value.length > 0 && selectedHours.value.length > 0)
 
-onMounted(() => {
-  const tokenData = getTokenData()
-  if (tokenData?.role !== 'P') {
-    // router.push('/login')
-  }
-  if (tokenData?.id != null) {
-    psychologistId.value = Number(tokenData.id)
-  }
-})
-
 function toggleDay(value: number) {
-  if (selectedDays.value.includes(value)) {
-    selectedDays.value = selectedDays.value.filter((d) => d !== value)
-  } else {
-    selectedDays.value.push(value)
-  }
+  selectedDays.value = selectedDays.value.includes(value)
+    ? selectedDays.value.filter((day) => day !== value)
+    : [...selectedDays.value, value]
 }
 
-function toggleHour(hora: string) {
-  if (selectedHours.value.includes(hora)) {
-    selectedHours.value = selectedHours.value.filter((h) => h !== hora)
-  } else {
-    selectedHours.value.push(hora)
-  }
+function toggleHour(hour: string) {
+  selectedHours.value = selectedHours.value.includes(hour)
+    ? selectedHours.value.filter((item) => item !== hour)
+    : [...selectedHours.value, hour]
 }
 
 function clearSelection() {
@@ -170,15 +140,43 @@ function clearSelection() {
   saveMessage.value = ''
 }
 
+async function loadServiceDays() {
+  if (psychologistId.value == null) {
+    loading.value = false
+    return
+  }
+
+  try {
+    const days = await getServiceDays(psychologistId.value)
+    selectedDays.value = days.map((day) => day.weekDay)
+    selectedHours.value = [...new Set(days.flatMap((day) => day.hours))].sort()
+  } catch (error) {
+    console.error('Erro ao carregar horários cadastrados:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  const tokenData = getTokenData()
+  if (tokenData?.role !== 'P' || tokenData.id == null) {
+    loading.value = false
+    return
+  }
+
+  psychologistId.value = Number(tokenData.id)
+  loadServiceDays()
+})
+
 async function saveAvailability() {
-  if (!psychologistId.value || !hasSelection.value) return
+  if (psychologistId.value == null || !hasSelection.value) return
 
   saving.value = true
   saveMessage.value = ''
 
-  const days = selectedDays.value.map((day) => ({
-    weekDay: day,
-    hours: [...selectedHours.value]
+  const days = selectedDays.value.map((weekDay) => ({
+    weekDay,
+    hours: [...selectedHours.value].sort(),
   }))
 
   const ok = await createServiceDays(psychologistId.value, days)
@@ -186,387 +184,278 @@ async function saveAvailability() {
   saving.value = false
   saveOk.value = ok
   saveMessage.value = ok
-    ? 'Disponibilidade salva com sucesso!'
-    : 'Erro ao salvar. Verifique se você está autenticado como psicólogo e tente novamente.'
+    ? 'Horários salvos com sucesso!'
+    : 'Erro ao salvar. Tente novamente.'
 }
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
-
 .availability-page {
-  display: flex;
   min-height: 100vh;
-  background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 60%);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  background: #fcfbf8;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
 }
 
-.sidebar {
-  width: 320px;
-  flex-shrink: 0;
-  background: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
-  color: #fff;
-  padding: 28px 24px;
+/* Topbar */
+
+.create-topbar {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  border-bottom: 1px solid #2a2a2a;
+  background: #1a1a1a;
 }
 
 .back-btn {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  padding: 9px 16px;
-  border-radius: 10px;
-  cursor: pointer;
+  border: none;
+  background: #111;
+  color: #fcfbf8;
+  padding: 0 28px;
   font-size: 14px;
-  font-weight: 500;
-  align-self: flex-start;
-  transition: all 0.2s;
+  cursor: pointer;
+  border-right: 1px solid #2a2a2a;
+  transition: 0.2s;
   font-family: inherit;
 }
 
 .back-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateX(-2px);
+  background: #2a2a2a;
 }
 
-.psy-card-info {
-  margin-top: 40px;
+.top-option {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fcfbf8;
+  padding: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: inherit;
 }
 
-.psy-card-info .photo {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
+.top-option:hover {
+  background: #2a2a2a;
+}
+
+.top-option.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Container */
+
+.list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.list-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.list-header h1 {
+  margin: 0;
   font-size: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  color: #1a1a1a;
 }
 
-.psy-card-info h2 {
-  margin: 18px 0 8px;
-  font-size: 22px;
-  font-weight: 700;
+.selection-summary {
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  background: #eeeeee;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
-.psy-card-info p {
+.page-description {
+  margin: 0 0 32px;
   font-size: 14px;
   line-height: 1.6;
-  opacity: 0.92;
-  margin: 0;
+  color: #777;
 }
 
-.sidebar-summary {
-  margin-top: 40px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.summary-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.summary-num {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.summary-label {
-  font-size: 12px;
-  opacity: 0.85;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.sidebar-hint {
-  margin-top: 40px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  padding: 14px 16px;
-  font-size: 13px;
-  opacity: 0.9;
-  line-height: 1.5;
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-}
-
-.hint-icon {
-  font-size: 16px;
-}
-
-.content {
-  flex: 1;
-  padding: 40px 48px;
-  display: flex;
-  justify-content: center;
-}
-
-.content-inner {
-  width: 100%;
-  max-width: 760px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 28px;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.page-header h1 {
-  margin: 0;
-  font-size: 28px;
-  color: #1e293b;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-}
-
-.subtitle {
-  color: #64748b;
-  margin: 8px 0 0;
-  font-size: 15px;
-}
-
-.header-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #94a3b8;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-.header-status.ready {
-  color: #059669;
-  border-color: #a7f3d0;
-  background: #f0fdf4;
-}
-
-.header-status .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #cbd5e1;
-}
-
-.header-status.ready .dot {
-  background: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
+/* Cards */
 
 .card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  padding: 26px;
   margin-bottom: 20px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
 .card-head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .card-head h2 {
   margin: 0;
-  font-size: 17px;
-  color: #1e293b;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1a1a;
 }
 
 .card-count {
-  font-size: 12px;
-  font-weight: 600;
-  color: #64748b;
-  background: #f1f5f9;
-  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  background: #eeeeee;
+  padding: 6px 14px;
   border-radius: 999px;
 }
 
-.days-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+/* Seleção */
 
+.days-grid,
 .hours-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 14px;
 }
 
 .day-pill,
 .hour-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 18px;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #334155;
-  cursor: pointer;
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 11px 18px;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
-}
-
-.pill-check {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1.5px solid #cbd5e1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: transparent;
-  transition: all 0.18s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .day-pill:hover,
 .hour-pill:hover {
-  border-color: #6366f1;
-  background: #eef2ff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.12);
+  border-color: #1a1a1a;
 }
 
 .day-pill.active,
 .hour-pill.active {
-  background: #4f46e5;
-  border-color: #4f46e5;
-  color: #fff;
-  box-shadow: 0 5px 14px rgba(79, 70, 229, 0.3);
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #ffffff;
 }
 
-.day-pill.active .pill-check,
-.hour-pill.active .pill-check {
-  border-color: #fff;
-  color: #4f46e5;
-  background: #fff;
+.hour-pill {
+  min-width: 84px;
+  text-align: center;
 }
 
 .hours-note {
-  margin: 6px 0 0;
-  font-size: 12.5px;
-  color: #94a3b8;
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: #999;
 }
+
+/* Ações */
 
 .actions {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.save-btn,
+.clear-btn {
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .save-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  padding: 14px 26px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
-  transition: all 0.2s;
+  gap: 10px;
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #ffffff;
 }
 
 .save-btn:hover:not(:disabled) {
-  background: #4338ca;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
-}
-
-.save-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
+  background: #333333;
+  border-color: #333333;
 }
 
 .clear-btn {
-  background: transparent;
-  border: 1.5px solid #e2e8f0;
-  color: #64748b;
-  padding: 13px 20px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s;
+  border: 1px solid #1a1a1a;
+  background: #ffffff;
+  color: #1a1a1a;
 }
 
 .clear-btn:hover:not(:disabled) {
-  border-color: #cbd5e1;
-  color: #334155;
-  background: #f8fafc;
+  background: #1a1a1a;
+  color: #ffffff;
 }
 
+.save-btn:disabled,
 .clear-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
 .spinner {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
+  border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading e mensagens */
+
+.loading-state {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eeeeee;
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+.loading-state p {
+  font-size: 14px;
+  color: #aaaaaa;
 }
 
 .message {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin-top: 20px;
   padding: 14px 18px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  margin-top: 18px;
-}
-
-.message-icon {
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .message.ok {
@@ -581,15 +470,32 @@ async function saveAvailability() {
   border: 1px solid #fecaca;
 }
 
-@media (max-width: 860px) {
-  .availability-page {
+/* Responsivo */
+
+@media (max-width: 600px) {
+  .create-topbar {
+    flex-wrap: wrap;
+  }
+
+  .list-container {
+    padding: 24px 16px;
+  }
+
+  .list-header {
     flex-direction: column;
+    align-items: flex-start;
   }
-  .sidebar {
-    width: 100%;
+
+  .list-header h1 {
+    font-size: 24px;
   }
-  .content {
-    padding: 24px;
+
+  .card {
+    padding: 18px;
+  }
+
+  .hour-pill {
+    min-width: 72px;
   }
 }
 </style>

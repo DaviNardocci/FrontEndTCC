@@ -110,6 +110,11 @@ export interface AvailabilityResponse {
   hours: AvailabilityHour[]
 }
 
+export interface ServiceDayDTO {
+  weekDay: number
+  hours: string[]
+}
+
 export interface AppointmentDTO {
   type: string
   dateAndTime: string
@@ -332,6 +337,16 @@ export async function getAvailability(psychologistId: number, date: string): Pro
   } catch (error) {
     console.error('Erro ao buscar disponibilidade:', error)
     return null
+  }
+}
+
+export async function getServiceDays(psychologistId: number): Promise<ServiceDayDTO[]> {
+  try {
+    const response = await api.get<ApiResponse<ServiceDayDTO[]>>(`/api/appointment/service-days/${psychologistId}`)
+    return response.data.success ? response.data.data : []
+  } catch (error) {
+    console.error('Erro ao buscar dias de atendimento:', error)
+    return []
   }
 }
 
