@@ -6,13 +6,26 @@ interface TokenPayload {
     exp: number
 }
 
-function getTokenData() {
+export interface TokenData extends Omit<TokenPayload, 'id'> {
+    id: number
+}
+
+function getTokenData(): TokenData | null {
     const token = localStorage.getItem("token")
     if (!token) {
         return null
     }
-    const decoded = jwtDecode<TokenPayload>(token)
-    return decoded
+
+    try {
+        const decoded = jwtDecode<TokenPayload>(token)
+        return {
+            id: Number(decoded.id),
+            role: decoded.role,
+            exp: decoded.exp,
+        }
+    } catch {
+        return null
+    }
 }
 
 export default getTokenData

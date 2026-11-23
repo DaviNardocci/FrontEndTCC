@@ -244,7 +244,7 @@ import getTokenData from '../../services/auth'
 const router = useRouter()
 
 const auth = ref(false)
-const id = ref<string | null>(null)
+const id = ref<number | null>(null)
 const currentPage = ref(0)
 
 const pageName = computed(() => {
