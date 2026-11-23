@@ -226,14 +226,10 @@
 
                   </div>
 
-                   <!-- PERFIL
-                       Futuramente pode virar:
-                       <router-link to="/psychologist/profile">
-                  -->
-                  <div
+                   <!-- PERFIL -->
+                  <router-link
+                    to="/psychologist/profile"
                     class="psy-card profile-card"
-                    role="button"
-                    tabindex="0"
                   >
 
                     <div class="app-icon profile-app-icon">
@@ -256,7 +252,7 @@
                       </h2>
 
                       <p>
-                        Visualize e edite suas informações profissionais.
+                        Visualize suas informações profissionais.
                       </p>
 
                     </div>
@@ -265,7 +261,7 @@
                       →
                     </span>
 
-                  </div>
+                  </router-link>
 
                 </div>
 

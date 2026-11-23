@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../pages/Login/Login.vue'
 import Home from '../pages/Home/Home.vue'
 import PatientHome from '../pages/Patient/PatientHome.vue'
+import Profile from '../pages/Profile/Profile.vue'
 import AdmHome from '../pages/Adm/AdmHome.vue'
 import CreatePsychologist from '../pages/Adm/AdmPsy/AdmCreatePsychologist/CreatePsychologist.vue'
 import ListPsychologists from '../pages/Adm/AdmPsy/AdmListPsychologists/ListPsychologists.vue'
@@ -24,6 +25,7 @@ const routes = [
   { path: '/login', name: 'Login', component: Login },
   { path: '/patient', name: 'PatientHome', component: PatientHome },
   { path: '/patient/agenda', name: 'Agenda', component: Agenda },
+  { path: '/patient/profile', name: 'PatientProfile', component: Profile },
   { path: '/admin', name: 'AdmHome', component: AdmHome },
   { path: '/admin/psychologist/create', name: 'CreatePsychologist', component: CreatePsychologist },
   { path: '/admin/psychologist/list', name: 'ListPsychologists', component: ListPsychologists },
@@ -33,6 +35,7 @@ const routes = [
   { path: '/admin/patient/list', name: 'AdmListPatient', component: AdmListPatients },
   { path: '/admin/request', name: 'AdmRequest', component: AdmRequest },
   { path: '/psychologist', name: 'PsyHome', component: PsyHome },
+  { path: '/psychologist/profile', name: 'PsyProfile', component: Profile },
   { path: '/patient/create', name: 'PsyCreatePatient', component: PsyCreatePatient },
   { path: '/patient/list', name: 'PsyListPatient', component: PsyListPatient },
   { path: '/psychologist/availability', name: 'PsyAvailability', component: PsyAvailability },

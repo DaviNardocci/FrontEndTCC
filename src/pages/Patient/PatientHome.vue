@@ -161,7 +161,7 @@
                       </h2>
 
                       <p>
-                        Atualize suas informações pessoais.
+                        Visualize suas informações pessoais.
                       </p>
                     </div>
 
