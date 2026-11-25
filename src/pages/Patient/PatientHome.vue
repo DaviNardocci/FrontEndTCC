@@ -19,7 +19,7 @@
 
         <div class="sereno-brand">
           <span class="brand-dot"></span>
-          <span>Sereno</span>
+          <span>SeeYou</span>
         </div>
 
         <main class="patient-main">
@@ -35,7 +35,7 @@
             </h1>
 
             <p>
-              Seu painel pessoal Sereno.<br />
+              Seu painel pessoal SeeYou.<br />
               Aqui você encontra tudo o que precisa para acompanhar seus atendimentos.
             </p>
 
@@ -59,7 +59,7 @@
                     class="patient-card consultations-card"
                   >
                     <div class="app-icon consultations-icon">
-                      <!-- COLOQUE SEU ÍCONE AQUI -->
+                      <img width="48" height="48" src="https://img.icons8.com/fluency-systems-regular/48/approval.png" alt="approval"/>
                     </div>
 
                     <div class="card-info">
@@ -86,7 +86,7 @@
                     class="patient-card appointments-card"
                   >
                     <div class="app-icon my-appointments-icon">
-                      <!-- COLOQUE SEU ÍCONE AQUI -->
+                      <img width="64" height="64" src="https://img.icons8.com/windows/64/overtime.png" alt="overtime"/>
                     </div>
 
                     <div class="card-info">
@@ -113,7 +113,10 @@
                     class="patient-card payment-card"
                   >
                     <div class="app-icon payment-icon">
-                      <!-- COLOQUE SEU ÍCONE AQUI -->
+                      <div class="wallet-icon">
+                        <span class="wallet-line"></span>
+                        <span class="wallet-dot"></span>
+                      </div>
                     </div>
 
                     <div class="card-info">
@@ -145,13 +148,20 @@
 
                   <router-link
                     to="/patient/profile"
-                    class="patient-card profile-card"
+                    class="psy-card profile-card"
                   >
-                    <div class="app-icon profile-icon">
-                      <!-- COLOQUE SEU ÍCONE AQUI -->
+
+                    <div class="app-icon profile-app-icon">
+
+                      <div class="profile-icon">
+                        <span class="profile-head"></span>
+                        <span class="profile-body"></span>
+                      </div>
+
                     </div>
 
                     <div class="card-info">
+
                       <span class="card-category">
                         CONTA
                       </span>
@@ -163,11 +173,13 @@
                       <p>
                         Visualize suas informações pessoais.
                       </p>
+
                     </div>
 
                     <span class="card-arrow">
                       →
                     </span>
+
                   </router-link>
 
                 </div>
@@ -218,7 +230,7 @@
 
           <div class="footer-brand">
             <span class="footer-dot"></span>
-            Sereno
+            SeeYou
           </div>
 
           <span class="footer-page">

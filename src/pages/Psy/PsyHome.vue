@@ -21,7 +21,7 @@
         <!-- MARCA -->
         <div class="sereno-brand">
           <span class="brand-dot"></span>
-          <span>Sereno</span>
+          <span>SeeYou</span>
         </div>
 
 
@@ -40,7 +40,7 @@
             </h1>
 
             <p>
-              Seu painel de gerenciamento Sereno.<br />
+              Seu painel de gerenciamento SeeYou.<br />
               Aqui você encontra tudo o que precisa para o seu dia a dia.
             </p>
 
@@ -331,7 +331,7 @@
 
           <div class="footer-brand">
             <span class="footer-dot"></span>
-            Sereno
+            SeeYou
           </div>
 
           <span class="footer-page">

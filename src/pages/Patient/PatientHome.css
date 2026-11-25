@@ -276,8 +276,67 @@
   background:#b4c0b6;
 }
 
-.profile-icon{
+.profile-app-icon{
   background:#40586e;
+}
+
+.profile-icon{
+  position:relative;
+  flex-shrink:0;
+  width:40px;
+  height:40px;
+}
+
+.profile-head{
+  position:absolute;
+  display:block;
+  left:13px;
+  top:2px;
+  width:12px;
+  height:12px;
+  border:3px solid white;
+  border-radius:50%;
+  box-sizing:border-box;
+}
+
+.profile-body{
+  position:absolute;
+  display:block;
+  left:4px;
+  bottom:2px;
+  width:30px;
+  height:17px;
+  border:3px solid white;
+  border-radius:18px 18px 7px 7px;
+  box-sizing:border-box;
+}
+
+.wallet-icon{
+  position:relative;
+  width:42px;
+  height:29px;
+  border:3px solid white;
+  border-radius:6px;
+  box-sizing:border-box;
+}
+
+.wallet-line{
+  position:absolute;
+  left:0;
+  right:0;
+  top:7px;
+  height:3px;
+  background:white;
+}
+
+.wallet-dot{
+  position:absolute;
+  right:6px;
+  top:14px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:white;
 }
 
 .card-info{
@@ -641,5 +700,153 @@
     top:18px;
     left:18px;
   }
+}
+
+/* =================================================
+   CARD DE PERFIL — copiado exatamente da home do psicólogo
+   ================================================== */
+.psy-card{
+  position: relative;
+  min-width: 0;
+  min-height: 225px;
+  padding: 22px;
+  box-sizing: border-box;
+  border-radius: 22px;
+  text-decoration: none;
+  color: #1a1a1a;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.psy-card::after{
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -55px;
+  bottom: -65px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.psy-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.psy-card:active{
+  transform: translateY(-2px);
+}
+
+.profile-card{
+  background: #34495e;
+  color: white;
+}
+
+.app-icon{
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-app-icon{
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.profile-icon{
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.profile-head{
+  position: absolute;
+  display: block;
+  left: 13px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.profile-body{
+  position: absolute;
+  display: block;
+  left: 4px;
+  bottom: 2px;
+  width: 30px;
+  height: 17px;
+  border: 3px solid white;
+  border-radius: 18px 18px 7px 7px;
+  box-sizing: border-box;
+}
+
+.card-info{
+  position: relative;
+  z-index: 2;
+}
+
+.card-category{
+  display: block;
+  margin-bottom: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #888;
+}
+
+.profile-card .card-category{
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.psy-card h2{
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.psy-card p{
+  margin: 8px 0 0;
+  max-width: 220px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.profile-card p{
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.profile-card h2{
+  color: rgba(255, 255, 255);
+}
+
+.card-arrow{
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  font-size: 22px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.psy-card:hover .card-arrow{
+  opacity: 0.8;
+  transform: translateX(0);
 }
 

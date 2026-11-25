@@ -9,7 +9,7 @@
       <div class="adm-profile">
         <div class="adm-photo">A</div>
         <h1>Administrador</h1>
-        <p>Painel de gerenciamento Sereno</p>
+        <p>Painel de gerenciamento SeeYou</p>
       </div>
 
       <div class="adm-grid">

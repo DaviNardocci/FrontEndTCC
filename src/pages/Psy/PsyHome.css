@@ -266,28 +266,33 @@
 
 .profile-icon{
   position: relative;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
 }
 
 .profile-head{
   position: absolute;
+  display: block;
   left: 13px;
   top: 2px;
   width: 12px;
   height: 12px;
   border: 3px solid white;
   border-radius: 50%;
+  box-sizing: border-box;
 }
 
 .profile-body{
   position: absolute;
+  display: block;
   left: 4px;
   bottom: 2px;
   width: 30px;
   height: 17px;
   border: 3px solid white;
   border-radius: 18px 18px 7px 7px;
+  box-sizing: border-box;
 }
 
 .wallet-icon{

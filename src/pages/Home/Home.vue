@@ -4,8 +4,8 @@
     <header class="header">
       <nav class="nav">
         <a href="#" class="logo">
-          <span class="logo-mark">D</span>
-          Dolphin
+          <span class="logo-mark">S</span>
+          SeeYou
         </a>
         <ul class="nav-links">
           <li><a href="#inicio">Início</a></li>
@@ -119,7 +119,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-inner">
-        <p>© {{ currentYear }} Sereno. Todos os direitos reservados.</p>
+        <p>© {{ currentYear }} SeeYou. Todos os direitos reservados.</p>
         <div class="footer-links">
           <a href="#">Privacidade</a>
           <a href="#">Termos</a>

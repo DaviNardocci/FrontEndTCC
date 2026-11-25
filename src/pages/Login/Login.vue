@@ -3,7 +3,7 @@
     <aside class="login-aside">
       <a href="/" class="login-logo">
         <span class="login-logo-mark">S</span>
-        Sereno
+        SeeYou
       </a>
 
       <div class="login-quote">
@@ -11,11 +11,11 @@
           "Cuidar de quem cuida. Uma plataforma só para o seu
           consultório."
         </p>
-        <span>— Sereno, plataforma para psicólogos</span>
+        <span>— SeeYou, plataforma para psicólogos</span>
       </div>
 
       <p class="login-aside-footer">
-        © {{ currentYear }} Sereno · Todos os direitos reservados
+        © {{ currentYear }} SeeYou · Todos os direitos reservados
       </p>
     </aside>
 
@@ -23,7 +23,7 @@
       <div class="login-card">
         <a href="/" class="login-mobile-logo">
           <span class="login-logo-mark">S</span>
-          Sereno
+          SeeYou
         </a>
 
         <h1>Entrar na sua conta</h1>
@@ -38,7 +38,8 @@
               type="text"
               autocomplete="cpf"
               placeholder="000.000.000-00"
-              v-model="cpf"
+              :value="cpf"
+              @input="handleCpf(($event.target as HTMLInputElement).value)"
               required
             />
           </div>
@@ -115,6 +116,16 @@
   const success = ref(false)
 
   const rememberMe = localStorage.getItem('checkboxAtiva')
+
+  function handleCpf(value: string) {
+    value = value.replace(/\D/g, '')
+    value = value.slice(0, 11)
+    value = value.replace(/(\d{3})(\d)/, '$1.$2')
+    value = value.replace(/(\d{3})(\d)/, '$1.$2')
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+
+    cpf.value = value
+  }
 
   onMounted(() => {
     const token = localStorage.getItem('token')
