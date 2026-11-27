@@ -185,14 +185,10 @@
                  
 
 
-                  <!-- PAGAMENTOS
-                       Futuramente pode virar:
-                       <router-link to="/psychologist/payment">
-                  -->
-                  <div
+                  <!-- PAGAMENTOS -->
+                  <router-link
+                    to="/psychologist/payments"
                     class="psy-card payment-card"
-                    role="button"
-                    tabindex="0"
                   >
 
                     <div class="app-icon payment-app-icon">
@@ -224,7 +220,7 @@
                       →
                     </span>
 
-                  </div>
+                  </router-link>
 
                    <!-- PERFIL -->
                   <router-link

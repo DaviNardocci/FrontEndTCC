@@ -20,7 +20,9 @@ import PsyUpdatePatient from '../pages/Psy/Patient/PsyUpdatePatient/UpdatePatien
 import PsyAvailability from '../pages/Psy/PsyAvailability/Availability.vue'
 import Agenda from '../pages/Patient/Agenda/Agenda.vue'
 import PatientAppointments from '../pages/Patient/PatientAppointments/PatientAppointments.vue'
+import PatientPayments from '../pages/Patient/PatientPayments/PatientPayments.vue'
 import PsyAppointments from '../pages/Psy/PsyAppointments/PsyAppointments.vue'
+import PsyPayments from '../pages/Psy/PsyPayments/PsyPayments.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -44,7 +46,9 @@ const routes = [
   { path: '/patient/update/:id', name: 'PsyUpdatePatient', component: PsyUpdatePatient },
   { path: '/psychologist/availability', name: 'PsyAvailability', component: PsyAvailability },
   { path: '/patient/appointments', name: 'PatientAppointments', component: PatientAppointments },
+  { path: '/patient/payments', name: 'PatientPayments', component: PatientPayments },
   { path: '/psychologist/appointments', name: 'PsyAppointments', component: PsyAppointments },
+  { path: '/psychologist/payments', name: 'PsyPayments', component: PsyPayments },
 ]
 
 const router = createRouter({
